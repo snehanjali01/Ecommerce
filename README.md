@@ -1,84 +1,117 @@
-ShopEase — Full-Stack E-Commerce Platform
+# ShopEase — Full-Stack E-Commerce Platform
 
-A full-stack e-commerce application built with a Spring Boot microservices backend and a Flutter frontend, supporting product browsing, cart management, wishlist, order tracking, and online payments via Razorpay.
+A full-stack e-commerce application built with a **Spring Boot microservices backend** and a **Flutter frontend**, supporting product browsing, cart management, wishlist, order tracking, and online payments via Razorpay.
 
-Overview
+---
+
+## Overview
 
 ShopEase lets users browse products across multiple categories, manage a cart and wishlist, place orders (Cash on Delivery or online via Razorpay), and track order status in real time — from "Order Placed" through to "Delivered," updated automatically by a scheduled backend job.
 
-The backend follows a microservices architecture with service discovery and centralized routing, so each domain (users, products, cart, orders, payments, wishlist) is independently deployable and scalable.
+The backend follows a **microservices architecture** with service discovery and centralized routing, so each domain (users, products, cart, orders, payments, wishlist) is independently deployable and scalable.
 
-Tech Stack
-Layer	Technology
-Frontend	Flutter (Dart) — Web & Android
-Backend	Java, Spring Boot
-Service Discovery	Netflix Eureka
-API Gateway	Spring Cloud Gateway
-Database	MongoDB (MongoDB Atlas)
-Authentication	JWT (JSON Web Tokens)
-Payments	Razorpay (Test Mode)
-State Management	Provider (Flutter)
-Build Tools	Maven (backend), Gradle (Android)
-Version Control	Git & GitHub
+---
 
-Project Structure
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | Flutter (Dart) — Web & Android |
+| Backend | Java, Spring Boot |
+| Service Discovery | Netflix Eureka |
+| API Gateway | Spring Cloud Gateway |
+| Database | MongoDB (MongoDB Atlas) |
+| Authentication | JWT (JSON Web Tokens) |
+| Payments | Razorpay (Test Mode) |
+| State Management | Provider (Flutter) |
+| Build Tools | Maven (backend), Gradle (Android) |
+| Version Control | Git & GitHub |
+
+## Project Structure
+
+```
 ecommerce/
-├── eureka-server/         
-├── api-gateway/           
-├── user-service/          
-├── product-service/       
-├── cart-service/          
-├── order-service/         
-├── payment-service/       
-├── wishlist-service/      
-└── ecommerce_app/   
+├── eureka-server/         # Service registry (Netflix Eureka)
+├── api-gateway/           # Single entry point, routes requests to services
+├── user-service/          # Registration, login, JWT authentication
+├── product-service/       # Product CRUD, categories, stock, attributes
+├── cart-service/          # Add / remove / update cart items
+├── order-service/         # Order placement, status tracking, auto-progression
+├── payment-service/       # Razorpay order creation & payment verification
+├── wishlist-service/      # Add / remove / view wishlist items
+└── ecommerce_app/         # Flutter frontend (Web & Android)
+```
 
-Flutter app layout
+### Flutter app layout
+
+```
 ecommerce_app/
 ├── lib/
-│   ├── main.dart              
-│   ├── models/                
-│   ├── screens/                
+│   ├── main.dart              # App entry point, auth-aware routing
+│   ├── models/                # AuthProvider and other app-wide state
+│   ├── screens/                # All UI screens (Home, Product, Cart, Checkout, Orders, etc.)
 │   └── services/
-│       ├── api_service.dart    
-│       └── razorpay_web/       
-├── android/                    
-├── ios/                        
-├── web/                        
+│       ├── api_service.dart    # Central HTTP client for all backend calls
+│       └── razorpay_web/       # Platform-specific Razorpay web checkout bridge
+├── android/                    # Native Android project
+├── ios/                        # Native iOS project
+├── web/                        # Web build config (index.html, manifest)
 └── pubspec.yaml
+```
 
-Getting Started
-Prerequisites
-Java 17+
-Maven
-Flutter SDK
-MongoDB (local or Atlas connection string)
-A free Razorpay test account (for payment testing)
-Backend Setup
-Clone the repository:
-   git clone https://github.com/snehareddyvari/ecommerce.git
-   cd ecommerce
-For each backend service, copy the config template and fill in your own values:
+## Getting Started
+
+### Prerequisites
+- Java 17+
+- Maven
+- Flutter SDK
+- MongoDB (local or Atlas connection string)
+- A free [Razorpay](https://razorpay.com) test account (for payment testing)
+
+### Backend Setup
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/snehanjali01/Ecommerce.git
+   cd Ecommerce
+   ```
+
+2. For each backend service, copy the config template and fill in your own values:
+   ```
    cp payment-service/src/main/resources/application.properties.example \
       payment-service/src/main/resources/application.properties
+   ```
+   Repeat for any other service with a `.example` config file. Add your MongoDB connection string, JWT secret, and Razorpay test keys.
 
-Repeat for any other service with a .example config file. Add your MongoDB connection string, JWT secret, and Razorpay test keys.
-
-Start services in this order (each in its own terminal):
+3. Start services in this order (each in its own terminal):
+   ```
    eureka-server → api-gateway → user-service → product-service →
    cart-service → order-service → payment-service → wishlist-service
-Frontend Setup
+   ```
+
+### Frontend Setup
+
+```
 cd ecommerce_app
 flutter pub get
-flutter run -d chrome      * for web
-flutter run                * for a connected Android device/emulator
+flutter run -d chrome      # for web
+flutter run                # for a connected Android device/emulator
+```
 
-Note: Android emulators must reach the backend via 10.0.2.2 instead of localhost — this is already handled automatically in api_service.dart based on platform.
+> **Note:** Android emulators must reach the backend via `10.0.2.2` instead of `localhost` — this is already handled automatically in `api_service.dart` based on platform.
 
-Security
-application.properties files (containing database credentials, JWT secrets, and Razorpay keys) are excluded from version control via .gitignore.
-.example template files are committed instead, documenting required configuration without exposing real values.
-Razorpay test keys are used throughout — no real payments are processed.
-License
+---
+
+## Security
+
+- `application.properties` files (containing database credentials, JWT secrets, and Razorpay keys) are excluded from version control via `.gitignore`.
+- `.example` template files are committed instead, documenting required configuration without exposing real values.
+- Razorpay test keys are used throughout — no real payments are processed.
+
+---
+
+## License
 
 This project was built for educational purposes as part of a personal learning project.
+
+
