@@ -98,9 +98,6 @@ flutter run -d chrome      * for web
 flutter run                * for a connected Android device/emulator
 ```
 
-> **Note:** Android emulators must reach the backend via `10.0.2.2` instead of `localhost` — this is already handled automatically in `api_service.dart` based on platform.
-
----
 
 ## Security
 
