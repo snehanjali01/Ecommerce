@@ -31,15 +31,15 @@ The backend follows a **microservices architecture** with service discovery and 
 
 ```
 ecommerce/
-├── eureka-server/         # Service registry (Netflix Eureka)
-├── api-gateway/           # Single entry point, routes requests to services
-├── user-service/          # Registration, login, JWT authentication
-├── product-service/       # Product CRUD, categories, stock, attributes
-├── cart-service/          # Add / remove / update cart items
-├── order-service/         # Order placement, status tracking, auto-progression
-├── payment-service/       # Razorpay order creation & payment verification
-├── wishlist-service/      # Add / remove / view wishlist items
-└── ecommerce_app/         # Flutter frontend (Web & Android)
+├── eureka-server/         
+├── api-gateway/          
+├── user-service/          
+├── product-service/       
+├── cart-service/          
+├── order-service/         
+├── payment-service/       
+├── wishlist-service/      
+└── ecommerce_app/         
 ```
 
 ### Flutter app layout
@@ -47,15 +47,15 @@ ecommerce/
 ```
 ecommerce_app/
 ├── lib/
-│   ├── main.dart              # App entry point, auth-aware routing
-│   ├── models/                # AuthProvider and other app-wide state
-│   ├── screens/                # All UI screens (Home, Product, Cart, Checkout, Orders, etc.)
+│   ├── main.dart              
+│   ├── models/              
+│   ├── screens/                
 │   └── services/
-│       ├── api_service.dart    # Central HTTP client for all backend calls
-│       └── razorpay_web/       # Platform-specific Razorpay web checkout bridge
-├── android/                    # Native Android project
-├── ios/                        # Native iOS project
-├── web/                        # Web build config (index.html, manifest)
+│       ├── api_service.dart    
+│       └── razorpay_web/      
+├── android/                    
+├── ios/                        
+├── web/                       
 └── pubspec.yaml
 ```
 
@@ -94,8 +94,8 @@ ecommerce_app/
 ```
 cd ecommerce_app
 flutter pub get
-flutter run -d chrome      # for web
-flutter run                # for a connected Android device/emulator
+flutter run -d chrome      * for web
+flutter run                * for a connected Android device/emulator
 ```
 
 > **Note:** Android emulators must reach the backend via `10.0.2.2` instead of `localhost` — this is already handled automatically in `api_service.dart` based on platform.
